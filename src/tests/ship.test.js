@@ -32,3 +32,10 @@ test("base case: is sunk", () => {
     expect(ship.isSunk()).toBe(true);
 })
 
+test("base case: is sunk with 1 hit more", () => {
+    const ship = new Ship(1);
+    ship.hit();
+    ship.hit();
+    expect(ship.isSunk()).toBe(true);
+})
+

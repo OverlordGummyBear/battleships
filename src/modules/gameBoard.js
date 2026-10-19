@@ -25,18 +25,15 @@ class GameBoard{
 
     get board(){ return this.#board; }
 
-    placeShip([x, y], length, isHorizontal){ //orientation
+    placeShip(x, y, length, isHorizontal){ //orientation
         //check that neither x or y overflow the board
         if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return false;
         //check that the ship does not overflow the board
         if((x + length > this.#boardLength && isHorizontal) ||
             (y + length > this.#boardLength && !isHorizontal)) return false;
         
-        const newShip = new Ship(length);
-
-        this.#fleet.push(newShip);
-
-        const newShipIndex = this.#fleet.length - 1;
+        const newShip = new Ship(length); //index before adding ship to arr in case placement is invalid
+        const newShipIndex = this.#fleet.length;
 
         //make sure that no ship is placed in any of the squares before placing
         for(let i = 0; i < length; i++){
@@ -45,6 +42,8 @@ class GameBoard{
             //return false to show that placement was unsuccessful
             if(shipInfo.shipIndex !== null) return false;
         }
+
+        this.#fleet.push(newShip);
 
         //place ships
         for(let i = 0; i < length; i++){
@@ -57,18 +56,29 @@ class GameBoard{
     }
 
     receiveAttack(x, y){
-        
+        if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return;
+
+        const squareInfo = this.#board[x][y];
+
+        if(squareInfo.isShot) return;
+
+        if(squareInfo.shipIndex !== null)
+            this.#fleet[squareInfo.shipIndex].hit();
+
+        squareInfo.isShot = true;
     }
 
     isFleetSunk(){
-        if(this.#fleet.length === 0) throw new Error("fleet is empty");
+        if(this.#fleet.length === 0) throw new Error("There is no ships in the fleet");
         
+        let isEveryShipSunk = true;
+
         this.#fleet.forEach(ship => {
             if(!ship.isSunk())
-                return false;
+                isEveryShipSunk = false;
         })
 
-        return true;
+        return isEveryShipSunk;
     }
 }
 

@@ -1,5 +1,7 @@
 import Ship from "./ship.js";
 
+//maybe include method to clear the board and let the setup be in a method for itself
+
 class GameBoard{
     #boardLength;
     #board;
@@ -25,7 +27,7 @@ class GameBoard{
 
     get board(){ return this.#board; }
 
-    placeShip(x, y, length, isHorizontal){ //orientation
+    placeShip([x, y], length, isHorizontal){
         //check that neither x or y overflow the board
         if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return false;
         //check that the ship does not overflow the board
@@ -56,20 +58,24 @@ class GameBoard{
     }
 
     receiveAttack(x, y){
-        if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return;
+        if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return "invalid";
 
         const squareInfo = this.#board[x][y];
 
-        if(squareInfo.isShot) return;
-
-        if(squareInfo.shipIndex !== null)
-            this.#fleet[squareInfo.shipIndex].hit();
+        if(squareInfo.isShot) return "invalid";
 
         squareInfo.isShot = true;
+
+        if(squareInfo.shipIndex !== null){
+            this.#fleet[squareInfo.shipIndex].hit();
+            return "hit";
+        } else {
+            return "miss";
+        }
     }
 
     isFleetSunk(){
-        if(this.#fleet.length === 0) throw new Error("There is no ships in the fleet");
+        if(this.#fleet.length === 0) throw new Error("There are no ships in the fleet");
         
         let isEveryShipSunk = true;
 

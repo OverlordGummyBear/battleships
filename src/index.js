@@ -2,13 +2,6 @@
 import GameBoard from "./modules/gameBoard.js";
 
 let gameBoard = new GameBoard(10);
+gameBoard.placeShip([3, 2], 3, true);
 
-gameBoard.placeShip(0, 0, 3, true);
-
-console.log(gameBoard.board)
-console.log(gameBoard.receiveAttack(0,0));
-console.log(gameBoard.isFleetSunk())
-console.log(gameBoard.receiveAttack(1,0));
-console.log(gameBoard.isFleetSunk())
-console.log(gameBoard.receiveAttack(2,0));
-console.log(gameBoard.isFleetSunk())
+gameBoard.receiveAttack(3, 2)

@@ -16,10 +16,6 @@ const gameViewer = new GameViewer();
 gameViewer.renderBoard(p1BoardDiv, player1.gameBoard.getAllSquareStates(), boardLength, true);
 gameViewer.renderBoard(p2BoardDiv, player2.gameBoard.getAllSquareStates(), boardLength, false);
 
-
-
-
-
 p1BoardDiv.addEventListener("click", (e) => {
     boardClick(e);
 })
@@ -35,4 +31,10 @@ function boardClick(e){
     const yCoordinate = Number(e.target.dataset.y);
 
     console.log("X:", xCoordinate, "Y:", yCoordinate)
+
+    player1.gameBoard.receiveAttack(xCoordinate, yCoordinate);
+
+    gameViewer.renderBoard(p1BoardDiv, player1.gameBoard.getAllSquareStates(), boardLength, true)
+
+    console.log(player1.gameBoard.board)
 }

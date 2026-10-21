@@ -55,3 +55,18 @@ body{
 .ship{
     background-color: #708090;
 }
+
+@media(max-width: 1000px){
+    .player-boards-container{
+        flex-direction: column;
+    }
+
+    .player-boards-container > div{
+        text-align: center;
+        margin: 0px;
+    }
+
+    .board-container{
+        margin: 10px 0px;
+    }
+}

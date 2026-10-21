@@ -40,7 +40,7 @@ class GameBoard{
 
         //make sure that no ship is placed in any of the squares before placing
         for(let i = 0; i < length; i++){
-            let shipInfo = isHorizontal ? this.#board[x + i][y] : this.#board[x][y + i];
+            let shipInfo = isHorizontal ? this.#board[y][x + i] : this.#board[y + i][x];
 
             //return false to show that placement was unsuccessful
             if(shipInfo.shipIndex !== null) return false;
@@ -51,8 +51,8 @@ class GameBoard{
         //place ships
         for(let i = 0; i < length; i++){
             isHorizontal 
-                ? this.#board[x + i][y].shipIndex = newShipIndex 
-                : this.#board[x][y + i].shipIndex = newShipIndex;
+                ? this.#board[y][x + i].shipIndex = newShipIndex 
+                : this.#board[y + i][x].shipIndex = newShipIndex;
         }
 
         return true;
@@ -62,6 +62,7 @@ class GameBoard{
         if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return "invalid";
 
         const squareInfo = this.#board[x][y];
+        console.log(x, y)
 
         if(squareInfo.isShot) return "invalid";
 
@@ -93,7 +94,7 @@ class GameBoard{
 
         for(let i = 0; i < this.#boardLength; i++){
             for(let j = 0; j < this.#boardLength; j++){
-                let squareInfo = this.#board[j][i];
+                let squareInfo = this.#board[i][j];
                 let result = "untouched";
 
                 if(squareInfo.shipIndex !== null && squareInfo.isShot === true)

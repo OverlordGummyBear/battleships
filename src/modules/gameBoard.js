@@ -26,6 +26,7 @@ class GameBoard{
     }
 
     get board(){ return this.#board; }
+    get boardLength(){ return this.#boardLength; }
 
     placeShip([x, y], length, isHorizontal){
         //check that neither x or y overflow the board
@@ -85,6 +86,28 @@ class GameBoard{
         })
 
         return isEveryShipSunk;
+    }
+
+    getAllSquareStates(){
+        const squareStateArr = []
+
+        for(let i = 0; i < this.#boardLength; i++){
+            for(let j = 0; j < this.#boardLength; j++){
+                let squareInfo = this.#board[j][i];
+                let result = "untouched";
+
+                if(squareInfo.shipIndex !== null && squareInfo.isShot === true)
+                    result = "hit";
+                else if(squareInfo.shipIndex === null && squareInfo.isShot === true)
+                    result = "miss";
+                else if(squareInfo.shipIndex !== null && squareInfo.isShot === false)
+                    result = "ship";
+
+                squareStateArr.push(result);
+            }
+        }
+            
+        return squareStateArr;
     }
 }
 

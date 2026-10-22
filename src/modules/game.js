@@ -24,8 +24,9 @@ class Game{
         this.#currentPlayer = this.#currentPlayer === this.#player1 ? this.#player2 : this.#player1;
     }
 
-    takeTurn(x, y){
+    takeTurn(player, x, y){
         if(this.#isGameFinished) return "invalid";
+        if(this.#currentPlayer !== player) return "invalid";
 
         if(this.currentOpponent.gameBoard.receiveAttack(x, y) === "invalid") return "continue"; // or invalid maybe
 
@@ -40,7 +41,7 @@ class Game{
     }
     
     checkWinner(){
-        return currentOpponent.gameBoard.isFleetSunk();
+        return this.currentOpponent.gameBoard.isFleetSunk();
     }
 
     resetGame(){
@@ -52,3 +53,5 @@ class Game{
     }
 
 }
+
+export default Game;

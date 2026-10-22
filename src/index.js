@@ -6,14 +6,19 @@ const p1BoardDiv = document.getElementById("p1-board");
 const p2BoardDiv = document.getElementById("p2-board");
 const finishMessageH2 = document.querySelector(".finish-message");
 
+const resetButton = document.getElementById("reset-button");
+
 const game = new Game(10);
 const gameViewer = new GameViewer();
 gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
 gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
 
-p1BoardDiv.addEventListener("click", (e) => {
-
-})
+resetButton.addEventListener("click", () => { 
+    game.resetGame();
+    gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
+    gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
+    finishMessageH2.textContent = "";
+});
 
 p2BoardDiv.addEventListener("click", (e) => {
     if(e.target.dataset.x === undefined) return;

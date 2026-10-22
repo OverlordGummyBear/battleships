@@ -34,6 +34,12 @@ class ComputerPlayer extends Player{
 
         return this.#validMoves.splice(randomMoveIndex, 1)[0];
     }
+
+    reset(){
+        this.generateRandomValidMove();
+        this.gameBoard.clearBoard();
+        this.placeFleet();
+    }
 }
 
 export default ComputerPlayer;

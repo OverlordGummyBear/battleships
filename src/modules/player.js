@@ -22,6 +22,11 @@ class Player{
         this.#gameBoard.placeShip([4,9], 6, true);
         this.#gameBoard.placeShip([5,5], 2, false);
     }
+
+    reset(){
+        this.gameBoard.clearBoard();
+        this.placeFleet()
+    }
 }
 
 export default Player;

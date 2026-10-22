@@ -10,6 +10,13 @@ class GameBoard{
     constructor(boardSize){
         if(boardSize <= 0) throw new Error("boardSize has to be more than 0");
 
+        this.setupBoard(boardSize);
+    }
+
+    get board(){ return this.#board; }
+    get boardLength(){ return this.#boardLength; }
+
+    setupBoard(boardSize){
         this.#boardLength = boardSize;
         this.#board = new Array(boardSize);
 
@@ -24,9 +31,6 @@ class GameBoard{
             }
         }
     }
-
-    get board(){ return this.#board; }
-    get boardLength(){ return this.#boardLength; }
 
     placeShip([x, y], length, isHorizontal){
         //check that neither x or y overflow the board
@@ -62,7 +66,6 @@ class GameBoard{
         if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return "invalid";
 
         const squareInfo = this.#board[x][y];
-        console.log(x, y)
 
         if(squareInfo.isShot) return "invalid";
 
@@ -109,6 +112,13 @@ class GameBoard{
         }
             
         return squareStateArr;
+    }
+
+    clearBoard(){
+        this.#board = null;
+        this.#fleet = [];
+
+        this.setupBoard(this.#boardLength);
     }
 }
 

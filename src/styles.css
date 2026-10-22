@@ -45,11 +45,11 @@ body{
 }
 
 .hit{
-    background-color: red;
+    background-color:	#FF4433;
 }
 
 .miss{
-    background-color: #E5E4E2;
+    background-color: #F2F2F2;
 }
 
 .ship{

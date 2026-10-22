@@ -6,8 +6,6 @@ class GameViewer{
         container.style.setProperty("--board-length", boardLength);
         container.textContent = "";
 
-        console.log(boardState)
-
         for(let i = 0; i < boardLength; i++){
             for(let j = 0; j < boardLength; j++){
                 const squareDiv = document.createElement("div");

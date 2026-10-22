@@ -1,4 +1,5 @@
 import Player from "./player.js";
+import ComputerPlayer from "./computerPlayer.js";
 
 class Game{
     #player1;
@@ -10,7 +11,7 @@ class Game{
     constructor(boardSizes){
         this.#boardSize = boardSizes;
         this.#player1 = new Player("Player 1", this.#boardSize);
-        this.#player2 = new Player("Player 2", this.#boardSize);
+        this.#player2 = new ComputerPlayer("Player 2", this.#boardSize);
         this.#currentPlayer = this.#player1;
     }
 

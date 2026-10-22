@@ -10,7 +10,7 @@ const finishMessageDiv = document.querySelector(".finish-message");
 const game = new Game(10);
 const gameViewer = new GameViewer();
 gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
-gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
+gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
 
 p1BoardDiv.addEventListener("click", (e) => {
 

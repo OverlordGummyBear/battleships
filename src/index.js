@@ -25,6 +25,8 @@ p2BoardDiv.addEventListener("click", (e) => {
     if(game.takeTurn(game.player1, xCoordinate, yCoordinate) === "invalid") return;
 
     gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
+
+    console.log(game.player2.generateRandomValidMove())
 })  
 
 //put code inside game class (turns, winnerCheck, etc.)

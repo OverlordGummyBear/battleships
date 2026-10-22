@@ -1,11 +1,10 @@
 import "./styles.css";
-import Player from "./modules/player.js";
 import Game from "./modules/game.js";
 import GameViewer from "./modules/gameViewer.js";
 
 const p1BoardDiv = document.getElementById("p1-board");
 const p2BoardDiv = document.getElementById("p2-board");
-const finishMessageDiv = document.querySelector(".finish-message");
+const finishMessageH2 = document.querySelector(".finish-message");
 
 const game = new Game(10);
 const gameViewer = new GameViewer();
@@ -22,26 +21,25 @@ p2BoardDiv.addEventListener("click", (e) => {
     const xCoordinate = Number(e.target.dataset.x);
     const yCoordinate = Number(e.target.dataset.y);
     
-    if(game.takeTurn(game.player1, xCoordinate, yCoordinate) === "invalid") return;
+    let p1MoveResult = game.takeTurn(game.player1, xCoordinate, yCoordinate)
 
-    gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
+    if(p1MoveResult === "invalid") 
+        return;
 
-    console.log(game.player2.generateRandomValidMove())
-})  
+    gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
 
-//put code inside game class (turns, winnerCheck, etc.)
+    if(p1MoveResult === "won"){
+        finishMessageH2.textContent = "Player 1 won the game!";
+        return;
+    }
 
-function boardClick(e, player, playerBoard){
+    let coordinate = game.player2.generateRandomValidMove();
+    let p2MoveResult = game.takeTurn(game.player2, coordinate[0], coordinate[1]);
     
-
-
-    //take turn here
-    if(player.gameBoard.receiveAttack(xCoordinate, yCoordinate) === "invalid") return;
-
-    //identify player 2 to know whether the board show be shown or not
-    //const showBoard = player.playerName === player1.playerName ? true : false;
-    //gameViewer.renderBoard(playerBoard, player.gameBoard.getAllSquareStates(), boardLength, showBoard);
-
-
-    //check if won is returned from take turn
-}
+    gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
+    
+    if(p2MoveResult === "won"){
+        finishMessageH2.textContent = "Player 2 won the game!";
+        return;
+    }
+})  

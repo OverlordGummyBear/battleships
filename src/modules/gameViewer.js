@@ -10,13 +10,12 @@ class GameViewer{
             for(let j = 0; j < boardLength; j++){
                 const squareDiv = document.createElement("div");
                 squareDiv.classList = "";
-                squareDiv.dataset.x = i;
-                squareDiv.dataset.y = j;
+                squareDiv.dataset.x = j;
+                squareDiv.dataset.y = i;
 
                 container.appendChild(squareDiv);
 
-                let squareIndex = Number("" + i + j);
-                let squareInfo = boardState[squareIndex];
+                let squareInfo = boardState[i][j];
 
                 if(squareInfo === "hit")
                     squareDiv.classList = "hit";

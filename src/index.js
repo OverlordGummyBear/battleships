@@ -45,9 +45,15 @@ p1BoardDiv.addEventListener("mouseover", (e) => {
 
     for(let i = 0; i < shipLength; i++){
         if(isHorizontal){
-            currentState[Number("" + xCoordinate + yCoordinate) + i] = placement;
+            currentState[yCoordinate][xCoordinate + i] = placement;
         } else {
+            if(!game.player1.gameBoard.checkValidShipPlacement(
+                [xCoordinate, yCoordinate + i], 1, isHorizontal
+            )){
+                break;
+            }
 
+            currentState[yCoordinate + i][xCoordinate] = placement;
         }
     }
 

@@ -2,6 +2,10 @@ import "./styles.css";
 import Game from "./modules/game.js";
 import GameViewer from "./modules/gameViewer.js";
 
+let areShipsPlaced = false;
+let isVertical = true;
+let shipLength = 2;
+
 const p1BoardDiv = document.getElementById("p1-board");
 const p2BoardDiv = document.getElementById("p2-board");
 const finishMessageH2 = document.querySelector(".finish-message");
@@ -20,7 +24,43 @@ resetButton.addEventListener("click", () => {
     finishMessageH2.textContent = "";
 });
 
+p1BoardDiv.addEventListener("mouseover", (e) => {
+    if(areShipsPlaced) return;
+
+    if(e.target.dataset.x === undefined) return;
+
+    const xCoordinate = Number(e.target.dataset.x);
+    const yCoordinate = Number(e.target.dataset.y);
+
+    console.log(Number("" + xCoordinate + yCoordinate) + (0*10) + 1)
+    //console.log(parseInt(Number("" + xCoordinate + yCoordinate) + 1) / 10)
+
+
+    let currentState = game.player1.gameBoard.getAllSquareStates()
+    for(let i = 0; i < shipLength; i++){
+        if(isVertical){
+            if(Number("" + xCoordinate + yCoordinate) + (i*10) >= 99){
+                currentState[Number("" + xCoordinate + yCoordinate) + (i*10)] = "hit";
+                break;
+            }
+
+            currentState[Number("" + xCoordinate + yCoordinate) + (i*10)] = "ship";
+        } else {
+            if(Math.abs(xCoordinate - (parseInt((Number("" + xCoordinate + yCoordinate) + 1) / 10))) !== 0){
+                currentState[Number("" + xCoordinate + yCoordinate) + i] = "hit";
+                break;
+            }
+
+            currentState[Number("" + xCoordinate + yCoordinate) + i] = "ship"
+        }
+    }
+
+    gameViewer.renderBoard(p1BoardDiv, currentState, game.boardSize, true);
+})
+
 p2BoardDiv.addEventListener("click", (e) => {
+    if(!areShipsPlaced) return;
+
     if(e.target.dataset.x === undefined) return;
 
     const xCoordinate = Number(e.target.dataset.x);

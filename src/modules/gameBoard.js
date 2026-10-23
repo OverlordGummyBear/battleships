@@ -32,12 +32,18 @@ class GameBoard{
         }
     }
 
-    placeShip([x, y], length, isHorizontal){
+    checkValidShipPlacement([x, y], length, isHorizontal){
         //check that neither x or y overflow the board
         if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return false;
         //check that the ship does not overflow the board
         if((x + length > this.#boardLength && isHorizontal) ||
             (y + length > this.#boardLength && !isHorizontal)) return false;
+
+        return true;
+    }
+
+    placeShip([x, y], length, isHorizontal){
+        if(!this.checkValidShipPlacement([x, y], length, isHorizontal)) return false;
         
         const newShip = new Ship(length); //index before adding ship to arr in case placement is invalid
         const newShipIndex = this.#fleet.length;
@@ -65,7 +71,7 @@ class GameBoard{
     receiveAttack(x, y){
         if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return "invalid";
 
-        const squareInfo = this.#board[x][y];
+        const squareInfo = this.#board[y][x];
 
         if(squareInfo.isShot) return "invalid";
 

@@ -10,8 +10,8 @@ beforeEach(() => {
 test("placeShip: only shipIndex where the ship was placed", () => {
     expect(gameBoard.placeShip([4,4], 3, false)).toBe(true);
     expect(gameBoard.board[4][4].shipIndex).toBe(0);
-    expect(gameBoard.board[4][5].shipIndex).toBe(0);
-    expect(gameBoard.board[4][6].shipIndex).toBe(0);
+    expect(gameBoard.board[5][4].shipIndex).toBe(0);
+    expect(gameBoard.board[6][4].shipIndex).toBe(0);
 
     expect(gameBoard.board[4][3].shipIndex).toBe(null);
     expect(gameBoard.board[4][7].shipIndex).toBe(null);

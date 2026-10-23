@@ -24,12 +24,36 @@ resetButton.addEventListener("click", () => {
     finishMessageH2.textContent = "";
 });
 
+p1BoardDiv.addEventListener("click", (e) => {    
+    if(areShipsPlaced) return;
+
+    console.log(e.target.dataset.x)
+    if(e.target.dataset.x === undefined) return;
+
+    const xCoordinate = Number(e.target.dataset.x);
+    const yCoordinate = Number(e.target.dataset.y);
+
+    const validPlacement = game.player1.gameBoard.checkValidShipPlacement(
+        [xCoordinate, yCoordinate], shipLength, isHorizontal);
+
+    console.log(validPlacement)
+
+    if(!validPlacement) return;
+
+    game.player1.gameBoard.placeShip([xCoordinate, yCoordinate], shipLength, isHorizontal);
+
+    gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
+
+    shipLength = 0;
+});
+
 p1BoardDiv.addEventListener("mouseout", () => {
     gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
 })
 
 p1BoardDiv.addEventListener("mouseover", (e) => {
     if(areShipsPlaced) return;
+    if(e.buttons === 1) return; //returns if the user is currently trying to click and place a ship
 
     if(e.target.dataset.x === undefined) return;
 

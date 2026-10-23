@@ -5,6 +5,7 @@ class ComputerPlayer extends Player{
 
     constructor(playerName, boardSize, fleet){
         super(playerName, boardSize, fleet);
+        this.placeFleet();
         this.generateValidMoves();
     }
 

@@ -28,7 +28,7 @@ class Player{
 
     reset(){
         this.gameBoard.clearBoard();
-        this.placeFleet()
+        //this.placeFleet()
     }
 }
 

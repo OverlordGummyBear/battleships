@@ -52,8 +52,6 @@ class Game{
         this.#isGameFinished = false;
         this.#player1.reset();
         this.#player2.reset();
-
-        //need a setup for player2 (AI)
     }
 
 }

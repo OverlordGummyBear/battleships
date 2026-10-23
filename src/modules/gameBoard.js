@@ -39,6 +39,14 @@ class GameBoard{
         if((x + length > this.#boardLength && isHorizontal) ||
             (y + length > this.#boardLength && !isHorizontal)) return false;
 
+        //make sure that no ship is placed in any of the squares before placing
+        for(let i = 0; i < length; i++){
+            let shipInfo = isHorizontal ? this.#board[y][x + i] : this.#board[y + i][x];
+
+            //return false to show that placement was unsuccessful
+            if(shipInfo.shipIndex !== null) return false;
+        }
+
         return true;
     }
 
@@ -47,14 +55,6 @@ class GameBoard{
         
         const newShip = new Ship(length); //index before adding ship to arr in case placement is invalid
         const newShipIndex = this.#fleet.length;
-
-        //make sure that no ship is placed in any of the squares before placing
-        for(let i = 0; i < length; i++){
-            let shipInfo = isHorizontal ? this.#board[y][x + i] : this.#board[y + i][x];
-
-            //return false to show that placement was unsuccessful
-            if(shipInfo.shipIndex !== null) return false;
-        }
 
         this.#fleet.push(newShip);
 

@@ -33,14 +33,17 @@ class GameBoard{
     }
 
     checkValidShipPlacement([x, y], length, isHorizontal){
+        let lengthNum = Number(length);
+
         //check that neither x or y overflow the board
         if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return false;
         //check that the ship does not overflow the board
-        if((x + length > this.#boardLength && isHorizontal) ||
-            (y + length > this.#boardLength && !isHorizontal)) return false;
+        
+        if((x + lengthNum > this.#boardLength && isHorizontal) ||
+            (y + lengthNum > this.#boardLength && !isHorizontal)) return false;
 
         //make sure that no ship is placed in any of the squares before placing
-        for(let i = 0; i < length; i++){
+        for(let i = 0; i < lengthNum; i++){
             let shipInfo = isHorizontal ? this.#board[y][x + i] : this.#board[y + i][x];
 
             //return false to show that placement was unsuccessful

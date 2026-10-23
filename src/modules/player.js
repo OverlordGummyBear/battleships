@@ -3,18 +3,21 @@ import GameBoard from "./gameBoard.js";
 class Player{
     #playerName;
     #gameBoard;
+    #fleet;
     
-    constructor(playerName, boardSize){
+    constructor(playerName, boardSize, fleet){
         if(!Number.isInteger(boardSize) || boardSize < 1) throw new Error("boardSize has to be an integer higher than 0");
 
         this.#playerName = playerName;
         this.#gameBoard = new GameBoard(boardSize);
+        this.#fleet = fleet;
 
-        this.placeFleet();
+        //this.placeFleet();
     }
 
     get playerName(){ return this.#playerName; }
     get gameBoard(){ return this.#gameBoard; }
+    get fleet(){ return this.#fleet; }
 
     placeFleet(){
         this.#gameBoard.placeShip([0,0], 2, true);

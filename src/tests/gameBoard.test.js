@@ -6,6 +6,11 @@ beforeEach(() => {
     gameBoard = new GameBoard(10);
 });
 
+//checkValidShipPlacement
+test("validShipPlacement: check empty board with random length", () => {
+    expect(gameBoard.checkValidShipPlacement([6,1], 4, false)).toBe(true)
+})
+
 //placeShip
 test("placeShip: only shipIndex where the ship was placed", () => {
     expect(gameBoard.placeShip([4,4], 3, false)).toBe(true);

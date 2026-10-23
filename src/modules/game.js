@@ -7,11 +7,13 @@ class Game{
     #currentPlayer;
     #isGameFinished = false;
     #boardSize;
+    #fleet;
     
-    constructor(boardSizes){
+    constructor(boardSizes, fleet){
+        this.#fleet = fleet
         this.#boardSize = boardSizes;
-        this.#player1 = new Player("Player 1", this.#boardSize);
-        this.#player2 = new ComputerPlayer("Player 2", this.#boardSize);
+        this.#player1 = new Player("Player 1", this.#boardSize, fleet);
+        this.#player2 = new ComputerPlayer("Player 2", this.#boardSize, fleet);
         this.#currentPlayer = this.#player1;
     }
 
@@ -20,6 +22,7 @@ class Game{
     get boardSize(){ return this.#boardSize; }
     get currentPlayer(){ return this.#currentPlayer; }
     get currentOpponent(){ return this.#currentPlayer === this.#player1 ? this.#player2 : this.#player1 }
+    get fleet(){ return this.#fleet; }
 
     changePlayer(){
         this.#currentPlayer = this.#currentPlayer === this.#player1 ? this.#player2 : this.#player1;

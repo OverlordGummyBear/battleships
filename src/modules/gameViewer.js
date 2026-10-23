@@ -28,6 +28,12 @@ class GameViewer{
             }
         }
     }
+
+    updateSquares(container, updatedSquares, showShips){
+        for(let i = 0; i < updatedSquares.length; i++){
+
+        }
+    }
 }
 
 export default GameViewer;

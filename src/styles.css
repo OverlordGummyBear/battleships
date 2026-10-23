@@ -24,6 +24,11 @@ body{
     margin: 20px 10px
 }
 
+#gameprep{
+    display: flex;
+    flex-direction: column;
+}
+
 .board-container{
     display: grid;
     grid-template-rows: repeat(var(--board-length), 1fr);

@@ -3,13 +3,13 @@ import Player from "./player.js";
 class ComputerPlayer extends Player{
     #validMoves = [];
 
-    constructor(playerName, boardSize){
-        super(playerName, boardSize);
+    constructor(playerName, boardSize, fleet){
+        super(playerName, boardSize, fleet);
         this.generateValidMoves();
     }
 
     placeFleet(){
-        const shipLengthToPlace = [5, 4, 4, 3, 3, 3, 2, 2, 2, 2];
+        const shipLengthToPlace = this.fleet;
 
         let i = 0;
         while(i < shipLengthToPlace.length){

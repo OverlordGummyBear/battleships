@@ -24,6 +24,10 @@ resetButton.addEventListener("click", () => {
     finishMessageH2.textContent = "";
 });
 
+p1BoardDiv.addEventListener("mouseout", () => {
+    gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
+})
+
 p1BoardDiv.addEventListener("mouseover", (e) => {
     if(areShipsPlaced) return;
 
@@ -36,46 +40,20 @@ p1BoardDiv.addEventListener("mouseover", (e) => {
         [xCoordinate, yCoordinate], shipLength, isHorizontal
     )
     let placement = validShipPlacement ? "ship" : "hit";
-
-    //console.log(Number("" + xCoordinate + yCoordinate) + (0*10) + 1)
-    //console.log(parseInt(Number("" + xCoordinate + yCoordinate) + 1) / 10)
-
-
-    let currentState = game.player1.gameBoard.getAllSquareStates()
+    let currentState = game.player1.gameBoard.getAllSquareStates();
 
     for(let i = 0; i < shipLength; i++){
         if(isHorizontal){
             currentState[yCoordinate][xCoordinate + i] = placement;
         } else {
             if(!game.player1.gameBoard.checkValidShipPlacement(
-                [xCoordinate, yCoordinate + i], 1, isHorizontal
-            )){
+                [xCoordinate, yCoordinate + i], 1, isHorizontal)){
                 break;
             }
 
             currentState[yCoordinate + i][xCoordinate] = placement;
         }
     }
-
-
-    /*
-    for(let i = 0; i < shipLength; i++){
-        if(isVertical){
-            if(Number("" + xCoordinate + yCoordinate) + (i*10) >= 99){
-                currentState[Number("" + xCoordinate + yCoordinate) + (i*10)] = "hit";
-                break;
-            }
-
-            currentState[Number("" + xCoordinate + yCoordinate) + (i*10)] = "ship";
-        } else {
-            if(Math.abs(xCoordinate - (parseInt((Number("" + xCoordinate + yCoordinate) + 1) / 10))) !== 0){
-                currentState[Number("" + xCoordinate + yCoordinate) + i] = "hit";
-                break;
-            }
-
-            currentState[Number("" + xCoordinate + yCoordinate) + i] = "ship"
-        }
-    } */
 
     gameViewer.renderBoard(p1BoardDiv, currentState, game.boardSize, true);
 })

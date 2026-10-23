@@ -3,7 +3,7 @@ import Game from "./modules/game.js";
 import GameViewer from "./modules/gameViewer.js";
 
 let areShipsPlaced = false;
-let isVertical = true;
+let isHorizontal = true;
 let shipLength = 2;
 
 const p1BoardDiv = document.getElementById("p1-board");
@@ -31,12 +31,28 @@ p1BoardDiv.addEventListener("mouseover", (e) => {
 
     const xCoordinate = Number(e.target.dataset.x);
     const yCoordinate = Number(e.target.dataset.y);
+    
+    let validShipPlacement = game.player1.gameBoard.checkValidShipPlacement(
+        [xCoordinate, yCoordinate], shipLength, isHorizontal
+    )
+    let placement = validShipPlacement ? "ship" : "hit";
 
-    console.log(Number("" + xCoordinate + yCoordinate) + (0*10) + 1)
+    //console.log(Number("" + xCoordinate + yCoordinate) + (0*10) + 1)
     //console.log(parseInt(Number("" + xCoordinate + yCoordinate) + 1) / 10)
 
 
     let currentState = game.player1.gameBoard.getAllSquareStates()
+
+    for(let i = 0; i < shipLength; i++){
+        if(isHorizontal){
+            currentState[Number("" + xCoordinate + yCoordinate) + i] = placement;
+        } else {
+
+        }
+    }
+
+
+    /*
     for(let i = 0; i < shipLength; i++){
         if(isVertical){
             if(Number("" + xCoordinate + yCoordinate) + (i*10) >= 99){
@@ -53,7 +69,7 @@ p1BoardDiv.addEventListener("mouseover", (e) => {
 
             currentState[Number("" + xCoordinate + yCoordinate) + i] = "ship"
         }
-    }
+    } */
 
     gameViewer.renderBoard(p1BoardDiv, currentState, game.boardSize, true);
 })

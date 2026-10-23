@@ -99,9 +99,13 @@ class GameBoard{
     }
 
     getAllSquareStates(){
-        const squareStateArr = []
+        const squareStateArr = new Array(this.#boardLength);
 
         for(let i = 0; i < this.#boardLength; i++){
+            const innerBoardArray = new Array(this.#boardLength);
+
+            squareStateArr[i] = innerBoardArray;
+
             for(let j = 0; j < this.#boardLength; j++){
                 let squareInfo = this.#board[i][j];
                 let result = "untouched";
@@ -113,10 +117,10 @@ class GameBoard{
                 else if(squareInfo.shipIndex !== null && squareInfo.isShot === false)
                     result = "ship";
 
-                squareStateArr.push(result);
+                innerBoardArray[j] = result;
             }
         }
-            
+
         return squareStateArr;
     }
 

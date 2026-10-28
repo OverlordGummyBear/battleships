@@ -8,7 +8,7 @@ const finishMessageH2 = document.querySelector(".finish-message");
 const horizontalCheckbox = document.getElementById("horizontal");
 const shipOptionInput = document.getElementById("ships-to-place");
 const resetButton = document.getElementById("reset-button");
-
+const randomShipPlacementButton = document.getElementById("random-ship-placement");
 
 const game = new Game(10, [6, 4, 4, 3, 3, 3, 2, 2, 2, 2]);
 const gameViewer = new GameViewer();
@@ -16,23 +16,40 @@ const gameViewer = new GameViewer();
 let areShipsPlaced = false;
 let isHorizontal = false;
 let shipLength = 0;
-let fleet = game.fleet;
+let fleet = game.fleet.slice(); //get copy of array instead of reference so it is safe to modify
 
 gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
 gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
 renderShipOption();
 
-
 shipOptionInput.addEventListener("change", (e) => {
     shipLength = e.target.value;
 })
 
+randomShipPlacementButton.addEventListener("click", () => {
+    if(areShipsPlaced) return;
+
+    //something goes wrong when placing a ship and then clicking random placement - the ship you already placed are not included in the random placement of ships
+    game.player1.reset();
+    game.player1.placeFleet();
+    areShipsPlaced = true;
+    fleet = [];
+    renderShipOption();
+    gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
+
+});
 
 resetButton.addEventListener("click", () => { 
+    console.log("Index", fleet)
+    console.log("Game", game.fleet)
+
     game.resetGame();
     gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
     gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
     finishMessageH2.textContent = "";
+    fleet = game.fleet.slice(); //copy of game.fleet
+    console.log(fleet);
+    renderShipOption();
     areShipsPlaced = false;
 });
 

@@ -9,20 +9,7 @@ class ComputerPlayer extends Player{
         this.generateValidMoves();
     }
 
-    placeFleet(){
-        const shipLengthToPlace = this.fleet;
-
-        let i = 0;
-        while(i < shipLengthToPlace.length){
-            let randomX = parseInt(Math.random() * this.gameBoard.boardLength);
-            let randomY = parseInt(Math.random() * this.gameBoard.boardLength);
-            let randomOrientation = Math.random() < 0.5;
-
-            if(this.gameBoard.placeShip([randomX, randomY], shipLengthToPlace[i], randomOrientation)){
-                i++;
-            }
-        }
-    }
+    get validMoves(){ return this.#validMoves; }
 
     generateValidMoves(){
         for(let i = 0; i < this.gameBoard.boardLength; i++)
@@ -36,8 +23,11 @@ class ComputerPlayer extends Player{
         return this.#validMoves.splice(randomMoveIndex, 1)[0];
     }
 
+    generateInformedMove(){
+
+    }
+
     reset(){
-        this.generateRandomValidMove();
         this.gameBoard.clearBoard();
         this.placeFleet();
     }

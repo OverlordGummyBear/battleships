@@ -11,8 +11,6 @@ class Player{
         this.#playerName = playerName;
         this.#gameBoard = new GameBoard(boardSize);
         this.#fleet = fleet;
-
-        //this.placeFleet();
     }
 
     get playerName(){ return this.#playerName; }
@@ -20,15 +18,23 @@ class Player{
     get fleet(){ return this.#fleet; }
 
     placeFleet(){
-        this.#gameBoard.placeShip([0,0], 2, true);
-        this.#gameBoard.placeShip([3,0], 3, false);
-        this.#gameBoard.placeShip([4,9], 6, true);
-        this.#gameBoard.placeShip([5,5], 2, false);
+        const shipLengthToPlace = this.fleet;
+
+        let i = 0;
+        while(i < shipLengthToPlace.length){
+            let randomX = parseInt(Math.random() * this.gameBoard.boardLength);
+            let randomY = parseInt(Math.random() * this.gameBoard.boardLength);
+            let randomOrientation = Math.random() < 0.5;
+
+            if(this.gameBoard.placeShip([randomX, randomY], shipLengthToPlace[i], randomOrientation)){
+                i++;
+            }
+        }
     }
+
 
     reset(){
         this.gameBoard.clearBoard();
-        //this.placeFleet()
     }
 }
 

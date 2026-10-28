@@ -140,16 +140,16 @@ p2BoardDiv.addEventListener("click", (e) => {
 
     //player 2 moves (computer)
     setTimeout(() => {
-        let coordinate = game.player2.generateRandomValidMove();
+        let coordinate = game.player2.generateInformedMove() //generateRandomValidMove();
         let p2MoveResult = game.takeTurn(game.player2, coordinate[0], coordinate[1]);
-        
+
         gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
         
         if(p2MoveResult === "won"){
             finishMessageH2.textContent = "Player 2 won the game!";
             return;
         } else if(p2MoveResult === "hit"){
-
+            game.player2.addAdjacentHitSquares(coordinate[0], coordinate[1]);
         }
     }, 1000);
 })  

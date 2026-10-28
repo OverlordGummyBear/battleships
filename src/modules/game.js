@@ -32,7 +32,9 @@ class Game{
         if(this.#isGameFinished) return "invalid";
         if(this.#currentPlayer !== player) return "invalid";
 
-        if(this.currentOpponent.gameBoard.receiveAttack(x, y) === "invalid") return "continue"; // or invalid maybe
+        let moveResult = this.currentOpponent.gameBoard.receiveAttack(x, y);
+
+        if(moveResult === "invalid") return "continue"; // or invalid maybe
 
         if(this.checkWinner()){
             this.#isGameFinished = true;
@@ -41,7 +43,7 @@ class Game{
 
         this.changePlayer();
 
-        return "continue";
+        return moveResult;
     }
     
     checkWinner(){

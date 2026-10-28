@@ -2,6 +2,8 @@ import Player from "./player.js";
 
 class ComputerPlayer extends Player{
     #validMoves = [];
+    #informedMoves = [];
+    #visitedMoves = [];
 
     constructor(playerName, boardSize, fleet){
         super(playerName, boardSize, fleet);

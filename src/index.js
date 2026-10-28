@@ -29,7 +29,6 @@ shipOptionInput.addEventListener("change", (e) => {
 randomShipPlacementButton.addEventListener("click", () => {
     if(areShipsPlaced) return;
 
-    //something goes wrong when placing a ship and then clicking random placement - the ship you already placed are not included in the random placement of ships
     game.player1.reset();
     game.player1.placeFleet();
     areShipsPlaced = true;
@@ -40,9 +39,6 @@ randomShipPlacementButton.addEventListener("click", () => {
 });
 
 resetButton.addEventListener("click", () => { 
-    console.log("Index", fleet)
-    console.log("Game", game.fleet)
-
     game.resetGame();
     gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
     gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
@@ -126,6 +122,7 @@ p2BoardDiv.addEventListener("click", (e) => {
 
     if(e.target.dataset.x === undefined) return;
 
+    //player 1 moves
     const xCoordinate = Number(e.target.dataset.x);
     const yCoordinate = Number(e.target.dataset.y);
     
@@ -141,15 +138,20 @@ p2BoardDiv.addEventListener("click", (e) => {
         return;
     }
 
-    let coordinate = game.player2.generateRandomValidMove();
-    let p2MoveResult = game.takeTurn(game.player2, coordinate[0], coordinate[1]);
-    
-    gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
-    
-    if(p2MoveResult === "won"){
-        finishMessageH2.textContent = "Player 2 won the game!";
-        return;
-    }
+    //player 2 moves (computer)
+    setTimeout(() => {
+        let coordinate = game.player2.generateRandomValidMove();
+        let p2MoveResult = game.takeTurn(game.player2, coordinate[0], coordinate[1]);
+        
+        gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
+        
+        if(p2MoveResult === "won"){
+            finishMessageH2.textContent = "Player 2 won the game!";
+            return;
+        } else if(p2MoveResult === "hit"){
+
+        }
+    }, 1000);
 })  
 
 function renderShipOption(){

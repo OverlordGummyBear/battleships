@@ -45,6 +45,19 @@ class Game{
 
         return moveResult;
     }
+
+    takeComputerTurn(){
+        let coordinate = this.#player2.generateInformedMove();
+        let moveResult = this.takeTurn(this.#player2, coordinate[0], coordinate[1]);
+
+        if(moveResult === "won"){
+            return moveResult;
+        } else if(moveResult === "hit"){
+            this.#player2.addAdjacentHitSquares(coordinate[0], coordinate[1]);
+        }
+
+        return moveResult;
+    }
     
     checkWinner(){
         return this.currentOpponent.gameBoard.isFleetSunk();

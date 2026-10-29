@@ -1,6 +1,5 @@
 class GameViewer{
-    constructor(){
-    }
+    constructor(){ }
 
     renderBoard(container, boardState, boardLength, showShips){
         container.style.setProperty("--board-length", boardLength);
@@ -26,12 +25,6 @@ class GameViewer{
                 else 
                     squareDiv.classList = "board-square"
             }
-        }
-    }
-
-    updateSquares(container, updatedSquares, showShips){
-        for(let i = 0; i < updatedSquares.length; i++){
-
         }
     }
 }

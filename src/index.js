@@ -19,6 +19,7 @@ let areShipsPlaced = false;
 let isHorizontal = false;
 let shipLength = 0;
 let fleet = game.fleet.slice(); //get copy of array instead of reference so it is safe to modify
+let timer;
 
 gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
 gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
@@ -55,6 +56,7 @@ resetButton.addEventListener("click", () => {
     fleet = game.fleet.slice(); //copy of game.fleet
     renderShipOption();
     areShipsPlaced = false;
+    clearTimeout(timer);
 
     resetButton.style.display = "none";
     gamePrepDiv.style.display = "flex";
@@ -148,23 +150,16 @@ p2BoardDiv.addEventListener("click", (e) => {
     gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
 
     if(p1MoveResult === "won"){
-        finishMessageH2.textContent = "Player 1 won the game!";
+        finishMessageH2.textContent = `${game.player1.playerName} won the game!`;
         return;
     }
 
     //player 2 moves (computer)
-    setTimeout(() => {
-        let coordinate = game.player2.generateInformedMove() //generateRandomValidMove();
-        let p2MoveResult = game.takeTurn(game.player2, coordinate[0], coordinate[1]);
+    timer = setTimeout(() => {
+        if(game.takeComputerTurn() === "won")
+            finishMessageH2.textContent = `${game.player2.playerName} won the game!`;
 
         gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
-        
-        if(p2MoveResult === "won"){
-            finishMessageH2.textContent = "Player 2 won the game!";
-            return;
-        } else if(p2MoveResult === "hit"){
-            game.player2.addAdjacentHitSquares(coordinate[0], coordinate[1]);
-        }
     }, 1000);
 })  
 

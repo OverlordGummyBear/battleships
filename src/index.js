@@ -7,8 +7,10 @@ const p2BoardDiv = document.getElementById("p2-board");
 const finishMessageH2 = document.querySelector(".finish-message");
 const horizontalCheckbox = document.getElementById("horizontal");
 const shipOptionInput = document.getElementById("ships-to-place");
-const resetButton = document.getElementById("reset-button");
 const randomShipPlacementButton = document.getElementById("random-ship-placement");
+const gamePrepDiv = document.getElementById("gameprep");
+const resetButton = document.getElementById("reset-button");
+resetButton.style.display = "none";
 
 const game = new Game(10, [6, 4, 4, 3, 3, 3, 2, 2, 2, 2]);
 const gameViewer = new GameViewer();
@@ -19,12 +21,13 @@ let shipLength = 0;
 let fleet = game.fleet.slice(); //get copy of array instead of reference so it is safe to modify
 
 gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
-gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
+gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
 renderShipOption();
 
 shipOptionInput.addEventListener("change", (e) => {
     shipLength = e.target.value;
 })
+
 
 randomShipPlacementButton.addEventListener("click", () => {
     if(areShipsPlaced) return;
@@ -36,17 +39,25 @@ randomShipPlacementButton.addEventListener("click", () => {
     renderShipOption();
     gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
 
+
+    resetButton.style.display = "block";
+    gamePrepDiv.style.display = "none";
 });
 
 resetButton.addEventListener("click", () => { 
+    //game object reset
     game.resetGame();
     gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
-    gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
+    gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
+    
+    //index page reset
     finishMessageH2.textContent = "";
     fleet = game.fleet.slice(); //copy of game.fleet
-    console.log(fleet);
     renderShipOption();
     areShipsPlaced = false;
+
+    resetButton.style.display = "none";
+    gamePrepDiv.style.display = "flex";
 });
 
 horizontalCheckbox.addEventListener("change", () => {
@@ -113,8 +124,11 @@ p1BoardDiv.addEventListener("mouseover", (e) => {
 
     gameViewer.renderBoard(p1BoardDiv, currentState, game.boardSize, true);
 
-    if(fleet.length === 0)
+    if(fleet.length === 0){
         areShipsPlaced = true;
+        gamePrepDiv.style.display = "none";
+        resetButton.style.display = "flex"
+    }
 })
 
 p2BoardDiv.addEventListener("click", (e) => {
@@ -131,7 +145,7 @@ p2BoardDiv.addEventListener("click", (e) => {
     if(p1MoveResult === "invalid") 
         return;
 
-    gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, true);
+    gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
 
     if(p1MoveResult === "won"){
         finishMessageH2.textContent = "Player 1 won the game!";

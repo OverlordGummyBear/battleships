@@ -14,7 +14,7 @@ class GameViewer{
 
                 container.appendChild(squareDiv);
 
-                let squareInfo = boardState[i][j];
+                let squareInfo = boardState[j][i];
 
                 if(squareInfo === "hit")
                     squareDiv.classList = "hit";

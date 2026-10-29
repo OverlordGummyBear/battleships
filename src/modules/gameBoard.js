@@ -13,6 +13,7 @@ class GameBoard{
 
     get board(){ return this.#board; }
     get boardLength(){ return this.#boardLength; }
+    get fleet(){ return this.#fleet.slice()} //return copy of fleet array
 
     setupBoard(boardSize){
         this.#boardLength = boardSize;
@@ -108,7 +109,7 @@ class GameBoard{
             squareStateArr[i] = innerBoardArray;
 
             for(let j = 0; j < this.#boardLength; j++){
-                let squareInfo = this.#board[i][j];
+                let squareInfo = this.#board[j][i];
                 let result = "untouched";
 
                 if(squareInfo.shipIndex !== null && squareInfo.isShot === true)
@@ -126,7 +127,6 @@ class GameBoard{
     }
 
     clearBoard(){
-        this.#board = null;
         this.#fleet = [];
 
         this.setupBoard(this.#boardLength);

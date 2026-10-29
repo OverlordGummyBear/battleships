@@ -47,6 +47,8 @@ class Game{
     }
 
     takeComputerTurn(){
+        if(this.#isGameFinished) return "invalid";
+        
         let coordinate = this.#player2.generateInformedMove();
         let moveResult = this.takeTurn(this.#player2, coordinate[0], coordinate[1]);
 

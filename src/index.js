@@ -2,6 +2,11 @@ import "./styles.css";
 import Game from "./modules/game.js";
 import GameViewer from "./modules/gameViewer.js";
 
+//game element initialization
+const game = new Game(10, [6, 4, 4, 3, 3, 3, 2, 2, 2, 2]);
+const gameViewer = new GameViewer();
+
+//elements in index.html
 const p1BoardDiv = document.getElementById("p1-board");
 const p2BoardDiv = document.getElementById("p2-board");
 const finishMessageH2 = document.querySelector(".finish-message");
@@ -12,9 +17,7 @@ const gamePrepDiv = document.getElementById("gameprep");
 const resetButton = document.getElementById("reset-button");
 resetButton.style.display = "none";
 
-const game = new Game(10, [6, 4, 4, 3, 3, 3, 2, 2, 2, 2]);
-const gameViewer = new GameViewer();
-
+//flags to enable/disable event listeners
 let areShipsPlaced = false;
 let isHorizontal = false;
 let shipLength = 0;
@@ -25,26 +28,18 @@ gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), 
 gameViewer.renderBoard(p2BoardDiv, game.player2.gameBoard.getAllSquareStates(), game.boardSize, false);
 renderShipOption();
 
+//keep track of which ship is about to be placed during setup 
 shipOptionInput.addEventListener("change", (e) => {
     shipLength = e.target.value;
 })
 
-
-randomShipPlacementButton.addEventListener("click", () => {
-    if(areShipsPlaced) return;
-
-    game.player1.reset();
-    game.player1.placeFleet();
-    areShipsPlaced = true;
-    fleet = [];
-    renderShipOption();
-    gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
+//changes ship orientation flag
+horizontalCheckbox.addEventListener("change", () => {
+    isHorizontal = horizontalCheckbox.checked;
+})
 
 
-    resetButton.style.display = "block";
-    gamePrepDiv.style.display = "none";
-});
-
+//reset game and elements in html
 resetButton.addEventListener("click", () => { 
     //game object reset
     game.resetGame();
@@ -62,10 +57,26 @@ resetButton.addEventListener("click", () => {
     gamePrepDiv.style.display = "flex";
 });
 
-horizontalCheckbox.addEventListener("change", () => {
-    isHorizontal = horizontalCheckbox.checked;
-})
+//randomly places ships for player 1
+randomShipPlacementButton.addEventListener("click", () => {
+    if(areShipsPlaced) return;
 
+    //game method calls
+    game.player1.reset();
+    game.player1.placeFleet();
+
+    //flags
+    areShipsPlaced = true;
+    fleet = [];
+
+    //render
+    renderShipOption();
+    gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
+    resetButton.style.display = "block";
+    gamePrepDiv.style.display = "none";
+});
+
+//place ships manually
 p1BoardDiv.addEventListener("click", (e) => {    
     if(areShipsPlaced) return;
     if(shipLength === 0) return;
@@ -93,10 +104,12 @@ p1BoardDiv.addEventListener("click", (e) => {
     shipLength = 0;
 });
 
+//remove unplaced ship from p1Board
 p1BoardDiv.addEventListener("mouseout", () => {
     gameViewer.renderBoard(p1BoardDiv, game.player1.gameBoard.getAllSquareStates(), game.boardSize, true);
 })
 
+//render unplaced ship on p1Board to see where it would be placed
 p1BoardDiv.addEventListener("mouseover", (e) => {
     if(areShipsPlaced) return;
     if(e.buttons === 1) return; //returns if the user is currently trying to click and place a ship
@@ -133,6 +146,7 @@ p1BoardDiv.addEventListener("mouseover", (e) => {
     }
 })
 
+//go through game turns in the game
 p2BoardDiv.addEventListener("click", (e) => {
     if(!areShipsPlaced) return;
 
@@ -163,6 +177,7 @@ p2BoardDiv.addEventListener("click", (e) => {
     }, 1000);
 })  
 
+//render ships to be placed as options in the select element
 function renderShipOption(){
     shipOptionInput.textContent = "";
 

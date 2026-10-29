@@ -32,7 +32,6 @@ class Player{
         }
     }
 
-
     reset(){
         this.gameBoard.clearBoard();
     }

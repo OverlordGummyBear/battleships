@@ -1,7 +1,5 @@
 import Ship from "./ship.js";
 
-//maybe include method to clear the board and let the setup be in a method for itself
-
 class GameBoard{
     #boardLength;
     #board;

@@ -128,12 +128,12 @@ p1BoardDiv.addEventListener("mouseover", (e) => {
 
     for(let i = 0; i < shipLength; i++){
         if(isHorizontal){
-            currentState[yCoordinate][xCoordinate + i] = placement;
-        } else {
-            if(yCoordinate + i >= game.boardSize)
+            if(xCoordinate + i >= game.boardSize)
                 break;
 
-            currentState[yCoordinate + i][xCoordinate] = placement;
+            currentState[xCoordinate + i][yCoordinate] = placement;
+        } else {
+            currentState[xCoordinate][yCoordinate + i] = placement;
         }
     }
 

@@ -179,7 +179,7 @@ function renderShipOption(){
     fleet.forEach(shipLength => {
         const shipOption = document.createElement("option");
         shipOption.value = shipLength;
-        shipOption.textContent = shipLength;
+        shipOption.textContent = shipLength + "  \u25FC".repeat(shipLength);
         shipOptionInput.appendChild(shipOption);
     })
 }

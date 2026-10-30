@@ -17,6 +17,9 @@ A browser-based Battleship game where you play against the computer. Each class 
 - **The viewer only draws.** `GameViewer` receives a snapshot of square states (`untouched`, `ship`, `hit`, `miss`) and renders it. It never sees the board object, so unshot ships on the opponent's board can't leak to the page.
 - **`index.js`.** Allows the game to be played in the browser. It turns clicks into calls on `Game` and asks the viewer to redraw the result.
 
+## Live Demo
+Live Demo: https://overlordgummybear.github.io/battleships/
+
 ## Getting Started
 
 ### Install

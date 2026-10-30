@@ -6,7 +6,7 @@ class ComputerPlayer extends Player{
 
     constructor(playerName, boardSize, fleet){
         super(playerName, boardSize, fleet);
-        this.placeFleet();
+        this.placeFleet(1000);
         this.generateValidMoves();
     }
 
@@ -50,7 +50,7 @@ class ComputerPlayer extends Player{
 
     reset(){
         this.gameBoard.clearBoard();
-        this.placeFleet();
+        this.placeFleet(1000);
     }
 }
 

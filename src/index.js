@@ -63,7 +63,7 @@ randomShipPlacementButton.addEventListener("click", () => {
 
     //game method calls
     game.player1.reset();
-    game.player1.placeFleet();
+    game.player1.placeFleet(1000);
 
     //flags
     areShipsPlaced = true;

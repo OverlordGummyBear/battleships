@@ -15,7 +15,7 @@ A browser-based Battleship game where you play against the computer. Each class 
 
 - **The classes own the rules and the state.** `Ship`, `GameBoard`, `Player`, `ComputerPlayer` and `Game` contain no DOM code, so the whole game can be played and tested without a browser.
 - **The viewer only draws.** `GameViewer` receives a snapshot of square states (`untouched`, `ship`, `hit`, `miss`) and renders it. It never sees the board object, so unshot ships on the opponent's board can't leak to the page.
-- **`index.js`.** It turns clicks into calls on `Game` and asks the viewer to redraw the result.
+- **`index.js`.** Allows the game to be played in the browser. It turns clicks into calls on `Game` and asks the viewer to redraw the result.
 
 ## Getting Started
 

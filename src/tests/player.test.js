@@ -93,6 +93,7 @@ test("reset clears the gameBoard", () => {
     expect(player.gameBoard.placeShip([0,0], 5, true)).toBe(true);
 
     expect(player.gameBoard.receiveAttack(0,0)).toBe("hit");
+    expect(player.gameBoard.receiveAttack(0,0)).toBe("invalid");
 
     player.reset()
 

@@ -11,6 +11,7 @@ class ComputerPlayer extends Player{
     }
 
     get validMoves(){ return this.#validMoves; }
+    get informedMoves(){ return this.#informedMoves; }
 
     generateValidMoves(){
         for(let i = 0; i < this.gameBoard.boardLength; i++)
@@ -33,6 +34,8 @@ class ComputerPlayer extends Player{
     }
 
     addAdjacentHitSquares(x, y){
+        if(x < 0 || y < 0 || x >= this.gameBoard.boardLength || y >= this.gameBoard.boardLength) return;
+
         let coord = [[x - 1, y], [x + 1, y], [x, y-1], [x, y+1]];
 
         coord.forEach(coord => {

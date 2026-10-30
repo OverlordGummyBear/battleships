@@ -6,7 +6,7 @@ class Player{
     #fleet;
     
     constructor(playerName, boardSize, fleet){
-        if(!Number.isInteger(boardSize) || boardSize < 1) throw new Error("boardSize has to be an integer higher than 0");
+        if(!Number.isInteger(boardSize) || boardSize < 1) throw new Error("boardSize has to be an positive integer");
 
         this.#playerName = playerName;
         this.#gameBoard = new GameBoard(boardSize);

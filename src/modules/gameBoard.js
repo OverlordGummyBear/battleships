@@ -34,6 +34,8 @@ class GameBoard{
     checkValidShipPlacement([x, y], length, isHorizontal){
         let lengthNum = Number(length);
 
+        if(!Number.isInteger(x) || !Number.isInteger(y) || !Number.isInteger(lengthNum)) return false;
+
         //check that neither x or y overflow the board
         if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return false;
         //check that the ship does not overflow the board
@@ -71,7 +73,7 @@ class GameBoard{
     }
 
     receiveAttack(x, y){
-        if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0) return "invalid";
+        if(x >= this.#boardLength || x < 0 || y >= this.#boardLength || y < 0 || !Number.isInteger(x) || !Number.isInteger(y)) return "invalid";
 
         const squareInfo = this.#board[y][x];
 
